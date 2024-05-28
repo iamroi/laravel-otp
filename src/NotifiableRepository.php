@@ -11,7 +11,7 @@ class NotifiableRepository implements NotifiableRepositoryInterface
 
     public function __construct(protected OTPNotifiable $model)
     {
-        $this->mobileColumn = config('otp.mobile_column');
+        $this->mobileColumn = $model->getOTPMobileField();
     }
 
     public function findOrCreateByMobile(string $mobile): OTPNotifiable

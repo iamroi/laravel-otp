@@ -28,6 +28,11 @@ trait HasOTPNotify
         return $this->{$this->getOTPMobileField()};
     }
 
+    public function getOTPMobileField(): string
+    {
+        return config('otp.mobile_column', 'mobile');
+    }
+
     private function appendMobileToFillableAttributes(): void
     {
         $mobileFiled = $this->getOTPMobileField();
@@ -35,10 +40,5 @@ trait HasOTPNotify
         if (! in_array($mobileFiled, $this->fillable, true)) {
             $this->fillable = array_merge($this->fillable, [$mobileFiled]);
         }
-    }
-
-    private function getOTPMobileField(): string
-    {
-        return config('otp.mobile_column', 'mobile');
     }
 }
