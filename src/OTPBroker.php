@@ -32,7 +32,7 @@ class OTPBroker
     /**
      * @throws Throwable
      */
-    public function send(string $mobile, bool $userExists = false): OTPNotifiable
+    public function send(string $mobile, bool $userExists = false, string $token = null): OTPNotifiable
     {
         $user = $userExists ? $this->findUserByMobile($mobile) : null;
 
@@ -40,7 +40,7 @@ class OTPBroker
 
         $notifiable = $user ?? $this->makeNotifiable($mobile);
 
-        $this->token = $this->tokenRepository->create($notifiable);
+        $this->token = $token ?? $this->tokenRepository->create($notifiable);
 
         $notifiable->sendOTPNotification(
             $this->token,
